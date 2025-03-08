@@ -3,6 +3,8 @@
 
 Imagine you're on a spacecraft, and instead of zooming through space like a rocket, you’re sitting inside a **warp bubble**. This bubble is like a magic carpet that **warps space-time** around you. Here’s how it works:
 
+![Warp](warp.png)
+
 ---
 
 ## **Space Contracts in Front**
