@@ -1,7 +1,7 @@
 
 # Warp Drive in a Nutshell
 
-Imagine you're on a spacecraft, and instead of zooming through space like a rocket, you’re sitting inside a **warp bubble**. This bubble is like a magic carpet that **warps space-time** around you. Here’s how it works:
+The concept of a warp drive—a theoretical propulsion system that allows faster-than-light travel—was first mathematically formalized by physicist Miguel Alcubierre in 1994. Inspired by the idea of bending space-time, Alcubierre proposed a solution within the framework of Einstein's general relativity that could, in theory, enable interstellar travel without violating the laws of physics. Here's how it works:
 
 ![Warp](warp.png)
 
