@@ -3,7 +3,7 @@
 
 The concept of a warp drive—a theoretical propulsion system that allows faster-than-light travel—was first mathematically formalized by physicist Miguel Alcubierre in 1994. Inspired by the idea of bending space-time, Alcubierre proposed a solution within the framework of Einstein's general relativity that could, in theory, enable interstellar travel without violating the laws of physics. Here's how it works:
 
-![Warp](warp.png)
+![Warp](warp_wave_simulation.gif)
 
 ---
 
