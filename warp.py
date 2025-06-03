@@ -1,97 +1,87 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+from PIL import Image  # For GIF export (optional)
 
-# Define the warp bubble function with space contraction and expansion
+# ===== Physics Functions =====
 def warp_bubble(x, x0, sigma, contraction_strength=1.0, expansion_strength=1.0):
-    """
-    x: Position in space
-    x0: Center of the warp bubble
-    sigma: Width of the warp bubble
-    contraction_strength: Strength of space contraction in front of the bubble
-    expansion_strength: Strength of space expansion behind the bubble
-    """
-    # Gaussian-shaped warp bubble
+    """Generates a warp bubble with contraction, expansion, and a wake effect."""
     bubble = np.exp(-((x - x0) ** 2) / (2 * sigma ** 2))
-    
-    # Space contraction in front of the bubble (x < x0)
     contraction = -contraction_strength * bubble * (x < x0)
-    
-    # Space expansion behind the bubble (x > x0)
     expansion = expansion_strength * bubble * (x > x0)
-    
-    # Combine contraction and expansion
-    return contraction + expansion
+    wake = 0.3 * np.exp(-((x - x0 + 3) ** 2)) * (x < x0)  # Trailing wake
+    return contraction + expansion + wake
 
-# Simulate light rays passing through the warp bubble
 def light_ray_trajectory(x, warp_field, bending_strength=1.0):
-    """
-    Simulate light rays bending due to the warp bubble.
-    bending_strength: Controls how much the light rays bend.
-    """
-    return x + bending_strength * warp_field  # Adjust bending strength
+    """Simulates light bending due to the warp field (nonlinear effect)."""
+    return x + bending_strength * np.sin(warp_field)  # Nonlinear distortion
 
-# Initialize the animation
+# ===== Animation Setup =====
 def init_animation():
-    """
-    Initialize the animation with empty data.
-    """
+    """Initialize empty plot."""
     line_warp.set_data([], [])
     line_light.set_data([], [])
     spacecraft.set_data([], [])
     return line_warp, line_light, spacecraft
 
-# Update function for the animation
 def update_animation(frame):
-    """
-    Update the animation for each frame.
-    """
-    x0 = x0_values[frame]  # Current position of the warp bubble
-    warp_field = warp_bubble(x, x0, sigma, contraction_strength, expansion_strength)  # Calculate the warp bubble
-    light_rays = light_ray_trajectory(x, warp_field, bending_strength)  # Calculate light ray trajectories
+    """Update the plot for each frame."""
+    x0 = x0_values[frame]
+    warp_field = warp_bubble(x, x0, sigma, contraction_strength, expansion_strength)
+    light_rays = light_ray_trajectory(x, warp_field, bending_strength)
     
-    # Update the plot
+    # Update plot data
     line_warp.set_data(x, warp_field)
     line_light.set_data(x, light_rays)
-    spacecraft.set_data([x0], [0])  # Spacecraft is at the center of the warp bubble
+    spacecraft.set_data([x0], [0])
+    
+    # Dynamic y-axis scaling
+    ax.set_ylim(np.min(warp_field) - 0.5, np.max(warp_field) + 0.5)
+    ax.set_title(f"Warp Bubble Motion (x = {x0:.1f})")
     return line_warp, line_light, spacecraft
 
-# Main function to run the simulation
-def main():
-    """
-    Main function to set up and run the warp drive simulation.
-    """
-    global x, sigma, contraction_strength, expansion_strength, bending_strength, num_frames, x0_values
-    global line_warp, line_light, spacecraft
+# ===== Main Simulation =====
+def main(save_gif=False):
+    global x, sigma, contraction_strength, expansion_strength, bending_strength
+    global num_frames, x0_values, line_warp, line_light, spacecraft, ax
 
     # Parameters
-    x = np.linspace(-20, 20, 1000)  # Space coordinates (extended range)
-    sigma = 1  # Width of the warp bubble
-    contraction_strength = 2.0  # Strength of space contraction
-    expansion_strength = 2.0  # Strength of space expansion
-    bending_strength = 2.0  # Increase bending effect for better visibility
-    num_frames = 100  # Number of animation frames
-    x0_values = np.linspace(-15, 15, num_frames)  # Move the warp bubble from x = -15 to x = 15
+    x = np.linspace(-20, 20, 1000)  # Space coordinates
+    sigma = 1.0                      # Warp bubble width
+    contraction_strength = 2.0       # Front contraction strength
+    expansion_strength = 2.0         # Rear expansion strength
+    bending_strength = 2.0           # Light bending magnitude
+    num_frames = 100                 # Animation frames
+    x0_values = np.linspace(-15, 15, num_frames)  # Warp bubble path
 
-    # Set up the plot
+    # Plot setup
     fig, ax = plt.subplots(figsize=(10, 6))
-    line_warp, = ax.plot([], [], label="Warp Bubble (Space Distortion)", color="blue", linewidth=2)
-    line_light, = ax.plot([], [], label="Light Ray Trajectory", color="red", linewidth=2)
-    spacecraft, = ax.plot([], [], 'ko', markersize=10, label="Spacecraft")  # Spacecraft marker
+    line_warp, = ax.plot([], [], label="Warp Field", color="blue", lw=2)
+    line_light, = ax.plot([], [], label="Light Rays", color="red", lw=2, alpha=0.7)
+    spacecraft, = ax.plot([], [], 'ko', markersize=10, label="Spacecraft")
+    
+    # Styling
     ax.set_xlim(-20, 20)
     ax.set_ylim(-3, 3)
-    ax.set_xlabel("Space")
-    ax.set_ylabel("Effect")
-    ax.set_title("Warp Wave with Spacecraft")
-    ax.legend()
-    ax.grid()
+    ax.set_xlabel("Space (x)")
+    ax.set_ylabel("Space Distortion")
+    ax.grid(True, linestyle="--", alpha=0.5)
+    ax.legend(loc="upper right")
 
-    # Create the animation
-    ani = FuncAnimation(fig, update_animation, frames=num_frames, init_func=init_animation, blit=True, interval=50)
+    # Create animation
+    ani = FuncAnimation(
+        fig, update_animation, frames=num_frames,
+        init_func=init_animation, blit=False, interval=50
+    )
 
-    # Show the animation
+    # Save as GIF (optional)
+    if save_gif:
+        print("Saving GIF... (this may take a moment)")
+        ani.save("warp_wave_simulation.gif", writer="pillow", fps=30, dpi=300)
+        print("GIF saved as 'warp_drive.gif'")
+
     plt.show()
 
-# Run the simulation
+# ===== Run Simulation =====
 if __name__ == "__main__":
-    main()
+    main(save_gif=True)  # Set `save_gif=False` to disable export
