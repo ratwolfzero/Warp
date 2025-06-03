@@ -71,17 +71,17 @@ def main(save_gif=False):
     # Create animation
     ani = FuncAnimation(
         fig, update_animation, frames=num_frames,
-        init_func=init_animation, blit=False, interval=50
+        init_func=init_animation, blit=False, interval=70
     )
 
     # Save as GIF (optional)
     if save_gif:
         print("Saving GIF... (this may take a moment)")
-        ani.save("warp_wave_simulation.gif", writer="pillow", fps=30, dpi=300)
+        ani.save("warp_wave_simulation.gif", writer="pillow", fps=20, dpi=100)
         print("GIF saved as 'warp_drive.gif'")
 
     plt.show()
 
 # ===== Run Simulation =====
 if __name__ == "__main__":
-    main(save_gif=False)  # Set `save_gif=False` to disable export
+    main(save_gif=True)  # Set `save_gif=False` to disable export
