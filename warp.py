@@ -84,4 +84,4 @@ def main(save_gif=False):
 
 # ===== Run Simulation =====
 if __name__ == "__main__":
-    main(save_gif=True)  # Set `save_gif=False` to disable export
+    main(save_gif=False)  # Set `save_gif=False` to disable export
