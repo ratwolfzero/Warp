@@ -31,7 +31,7 @@ The concept of a warp drive—a theoretical propulsion system that allows faster
 
 ---
 
-# **The Energy Challenge**
+## **The Energy Challenge**
 
 Creating a warp bubble requires **huge amounts of energy**, thanks to Einstein’s famous equation, **$$E = mc^2$$**. This tells us that energy and mass are interchangeable, and warping space-time would need energy equivalent to the mass of entire planets or even stars!
 
@@ -49,7 +49,7 @@ Creating a warp bubble requires **huge amounts of energy**, thanks to Einstein�
 
 ---
 
-# **What the Simulation Shows**
+## **What the Simulation Shows**
 
 - The **blue curve** represents the warp bubble, showing how space contracts in front and expands behind.
 - The **black dot** is your spacecraft, sitting safely inside the bubble.
@@ -57,7 +57,7 @@ Creating a warp bubble requires **huge amounts of energy**, thanks to Einstein�
 
 ---
 
-# **Why It’s Cool**
+## **Why It’s Cool**
 
 - This isn’t science fiction—it’s based on real physics (Einstein’s general relativity)!
 - While we don’t yet have the technology to build a warp drive, the idea inspires scientists to explore the boundaries of space, time, and the universe.
