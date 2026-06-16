@@ -128,7 +128,7 @@ A **more accurate** 1D visualisation that follows the **original Alcubierre metr
 
   $$T_{00} \propto -\left(V_s \frac{\partial f}{\partial x}\right)^2$$
 
-- **Light dragging** from the shift vector \(\beta = -V_s f\):  
+- **Light dragging** from the shift vector $\(\beta = -V_s f\)$:  
 
   $$x_{\text{ray}} = x + \text{const} \cdot \beta$$
 
