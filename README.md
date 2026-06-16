@@ -93,10 +93,11 @@ contraction in front, expansion behind, shift vector, and negative energy densit
 A **pedagogical, artistic** visualisation. It uses a **Gaussian‑like bubble** with separate contraction and expansion strengths, plus a trailing wake. The light rays are bent by a **non‑linear sine function** of the warp field.  
 
 - Shape function:
--
+
   $$f_{\text{simple}}(x,x_0) = -C \cdot e^{-(x-x_0)^2/(2\sigma^2)}\cdot \mathbf{1}_{x<x_0} \;+\; E \cdot e^{-(x-x_0)^2/(2\sigma^2)}\cdot \mathbf{1}_{x>x_0} + \text{wake}$$
 
-- Light bending:  
+- Light bending:
+  
   $$x_{\text{ray}} = x + K \sin(f_{\text{simple}})$$
 
 - No spacetime diagrams, only a single animated panel.
