@@ -151,8 +151,23 @@ A **more accurate** 1D visualisation that follows the **original Alcubierre metr
 
 Further reading
 
-Alcubierre, M. (1994). The warp drive: hyper-fast travel within general relativity. Classical and Quantum Gravity, 11(5), L73–L77.
+You can view the paper on the official
+[IOPscience Journal Page](https://iopscience.iop.org/article/10.1088/0264-9381/11/5/001),
+access it via its
+[DOI](https://doi.org/10.1088/0264-9381/11/5/001),
+or read the freely available
+[arXiv preprint](https://arxiv.org/abs/gr-qc/0009013).
 
-You can view the paper metadata on the official [IOPscience Journal Page](https://www.google.com/url?sa=i&source=web&rct=j&url=https://iopscience.iop.org/article/10.1088/0264-9381/11/5/001&ved=2ahUKEwjrndCP0YqVAxWhEBAIHXAXBzYQy_kOeggIAggACAoQEA&opi=89978449&cd&psig=AOvVaw1goo0FWtPHtVSauD6VlIeo&ust=1781660610424000) or read the pre-print version directly on [arXiv](https://www.google.com/url?sa=i&source=web&rct=j&url=https://arxiv.org/abs/gr-qc/0009013&ved=2ahUKEwjrndCP0YqVAxWhEBAIHXAXBzYQy_kOeggIAggACAoQEQ&opi=89978449&cd&psig=AOvVaw1goo0FWtPHtVSauD6VlIeo&ust=1781660610424000).
 
-Lobo, F. S. N. (2010). “Warp drive basics”. In Warp Drive, Dark Energy and Extra Dimensions (pp. 1–26). Springer.
+Alcubierre, M. (1994). *The Warp Drive: Hyper-Fast Travel Within General Relativity*. Classical and Quantum Gravity, 11(5), L73–L77.
+DOI: <https://doi.org/10.1088/0264-9381/11/5/001>
+arXiv: <https://arxiv.org/abs/gr-qc/0009013>
+
+---
+
+Alcubierre, M., & Lobo, F. S. N. (2017). *Warp Drive Basics*. In *Wormholes, Warp Drives and Energy Conditions* (pp. 1–26). Springer.
+
+DOI: <https://doi.org/10.1007/978-3-319-55182-1_11>
+Springer: <https://link.springer.com/chapter/10.1007/978-3-319-55182-1_11>
+arXiv: <https://arxiv.org/abs/2103.05610>
+
