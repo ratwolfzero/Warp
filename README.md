@@ -101,6 +101,7 @@ A **pedagogical, artistic** visualisation. It uses a **Gaussian‑like bubble** 
   +E \cdot e^{-(x-x_0)^2/(2\sigma^2)}, & x > x_0
   \end{cases}
   $$
+  
   where \(\text{wake}(x) = 0.3 \cdot e^{-(x - x_0 + 3)^2}\) for \(x < x_0\) (a trailing disturbance).
 
 - Light bending (non‑physical, illustrative):  
