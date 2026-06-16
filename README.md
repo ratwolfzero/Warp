@@ -95,13 +95,11 @@ A **pedagogical, artistic** visualisation. It uses a **Gaussian‑like bubble** 
 - Shape function (heuristic, piecewise):  
 
 $$
-f_{\text{simple}}(x,x_0)
-=
-\begin{cases}
--C\,e^{-\frac{(x-x_0)^2}{2\sigma^2}} + \text{wake}, & x < x_0, \\[6pt]
-\text{wake}, & x = x_0, \\[6pt]
-E\,e^{-\frac{(x-x_0)^2}{2\sigma^2}} + \text{wake}, & x > x_0.
-\end{cases}
+f_{\text{simple}}(x,x_0) =
+-C e^{-(x-x_0)^2/(2\sigma^2)} \text{ for } x<x_0
++
+E e^{-(x-x_0)^2/(2\sigma^2)} \text{ for } x>x_0
++ \text{wake}
 $$
 
 - Light bending (non‑physical, illustrative):  
