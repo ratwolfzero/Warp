@@ -39,7 +39,8 @@ Creating a warp bubble requires **huge amounts of energy**, thanks to Einstein�
 
 ## **Exotic Matter**
 
-- Scientists speculate that something called **exotic matter** (with negative mass or energy) might be needed to create the warp bubble. This exotic matter would bend space-time in the right way, but we haven’t found any yet.
+- Scientists speculate that something called **exotic matter** (with negative mass or energy) might be needed to create the warp bubble.  
+This exotic matter would bend space-time in the right way, but we haven’t found any yet.
 
 ---
 
