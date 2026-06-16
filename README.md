@@ -94,15 +94,15 @@ A **pedagogical, artistic** visualisation. It uses a **Gaussian‑like bubble** 
 
 - Shape function (heuristic, piecewise):  
 
-  $$
-  f_{\text{simple}}(x,x_0) = 
-  \begin{cases}
-  -C \cdot e^{-(x-x_0)^2/(2\sigma^2)} + \text{wake}(x), & x < x_0 \\[4pt]
-  +E \cdot e^{-(x-x_0)^2/(2\sigma^2)}, & x > x_0
-  \end{cases}
-  $$
-  
-  where \(\text{wake}(x) = 0.3 \cdot e^{-(x - x_0 + 3)^2}\) for \(x < x_0\) (a trailing disturbance).
+$$
+f_{\text{simple}}(x,x_0)
+=
+-C\,e^{-\frac{(x-x_0)^2}{2\sigma^2}}\,I(x<x_0)
++
+E\,e^{-\frac{(x-x_0)^2}{2\sigma^2}}\,I(x>x_0)
++
+\text{wake}
+$$
 
 - Light bending (non‑physical, illustrative):  
   $$x_{\text{ray}} = x + K \sin\bigl(f_{\text{simple}}(x,x_0)\bigr)$$
