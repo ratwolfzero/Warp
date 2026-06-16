@@ -97,11 +97,11 @@ A **pedagogical, artistic** visualisation. It uses a **Gaussian‑like bubble** 
 $$
 f_{\text{simple}}(x,x_0)
 =
--C\,e^{-\frac{(x-x_0)^2}{2\sigma^2}}\,I(x<x_0)
-+
-E\,e^{-\frac{(x-x_0)^2}{2\sigma^2}}\,I(x>x_0)
-+
-\text{wake}
+\begin{cases}
+-C\,e^{-\frac{(x-x_0)^2}{2\sigma^2}} + \text{wake}, & x < x_0, \\[6pt]
+\text{wake}, & x = x_0, \\[6pt]
+E\,e^{-\frac{(x-x_0)^2}{2\sigma^2}} + \text{wake}, & x > x_0.
+\end{cases}
 $$
 
 - Light bending (non‑physical, illustrative):  
