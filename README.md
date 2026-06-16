@@ -94,7 +94,9 @@ A **pedagogical, artistic** visualisation. It uses a **Gaussian‑like bubble** 
 
 - Shape function:
 
-  $$f_{\text{simple}}(x,x_0) = -C \cdot e^{-(x-x_0)^2/(2\sigma^2)}\cdot \mathbf{1}_{x<x_0} \;+\; E \cdot e^{-(x-x_0)^2/(2\sigma^2)}\cdot \mathbf{1}_{x>x_0} + \text{wake}$$
+  $$
+  f_{\text{simple}}(x,x_0) = -C \cdot e^{-(x-x_0)^2/(2\sigma^2)}\cdot \mathbf{1}_{x<x_0} \;+\; E \cdot e^{-(x-x_0)^2/(2\sigma^2)}\cdot \mathbf{1}_{x>x_0} + \text{wake}
+  $$
 
 - Light bending:
   
