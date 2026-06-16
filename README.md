@@ -91,10 +91,13 @@ contraction in front, expansion behind, shift vector, and negative energy densit
 **What it is:**  
 A **pedagogical, artistic** visualisation. It uses a **Gaussian‑like bubble** with separate contraction and expansion strengths, plus a trailing wake. The light rays are bent by a **non‑linear sine function** of the warp field.  
 
-- Shape function:  
+- Shape function:
+-   
   $$f_{\text{simple}}(x,x_0) = -C \cdot e^{-(x-x_0)^2/(2\sigma^2)}\cdot \mathbf{1}_{x<x_0} \;+\; E \cdot e^{-(x-x_0)^2/(2\sigma^2)}\cdot \mathbf{1}_{x>x_0} + \text{wake}$$
+
 - Light bending:  
   $$x_{\text{ray}} = x + K \sin(f_{\text{simple}})$$
+
 - No spacetime diagrams, only a single animated panel.
 
 **What it is NOT:**  
@@ -135,7 +138,7 @@ A **more accurate** 1D visualisation that follows the **original Alcubierre metr
   2. **Middle** – spacetime diagram of \(\theta\) (colour map + animated time slice).  
   3. **Bottom** – spacetime diagram of \(T_{00}\) (colour map + animated time slice).  
 
-- The bubble velocity \(V_s\) is set to \(c=1\) (not FTL in this 1D movie, but the metric would allow it).
+- The bubble velocity $\(V_s\) is set to \(c=1\)$ (not FTL in this 1D movie, but the metric would allow it).
 
 **What it is NOT:**  
 
