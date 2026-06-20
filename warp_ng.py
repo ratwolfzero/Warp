@@ -148,4 +148,7 @@ ani = FuncAnimation(fig, update, frames=NUM_FRAMES, init_func=init,
                     interval=50, blit=False)
 
 plt.tight_layout()
+
+#ani.save('warp_drive_animation.gif', writer='pillow', fps=20, dpi=100)
+
 plt.show()
