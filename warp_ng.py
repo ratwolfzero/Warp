@@ -80,7 +80,10 @@ ax2 = fig.add_subplot(gs[1])
 theta_img = ax2.imshow(theta_history, aspect="auto", origin="lower",
                        extent=[X_MIN, X_MAX, 0, NUM_FRAMES],
                        cmap="coolwarm", vmin=-theta_lim, vmax=theta_lim)
-ax2.set_title("Expansion Scalar θ (Expansion > 0 behind, Contraction < 0 in front)")
+ax2.set_title("Expansion Scalar θ\n"
+              "(Expansion > 0 behind | Contraction < 0 in front)\n"
+              "Tiny ripples at edges = numerical noise from gradient",
+              fontsize=11)
 ax2.set_ylabel("Time (frames)")
 fig.colorbar(theta_img, ax=ax2, label="θ")
 theta_marker = ax2.axhline(0, color="k", linestyle="--", lw=1.5)
@@ -145,5 +148,5 @@ print("Animation ready!")
 plt.show()
 
 # Uncomment to save:
-ani.save('warp_ng.gif', writer='pillow', fps=15, dpi=110)
+#ani.save('warp_ng.gif', writer='pillow', fps=15, dpi=110)
 
