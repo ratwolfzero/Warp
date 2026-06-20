@@ -121,17 +121,23 @@ A **more accurate** 1D visualisation that follows the **original Alcubierre metr
 
   $$f(x,x_0) = \frac{\tanh\bigl(\sigma(|x-x_0|+R)\bigr) - \tanh\bigl(\sigma(|x-x_0|-R)\bigr)}{2\tanh(\sigma R)}$$
 
-- **Expansion scalar** (trace of the extrinsic curvature) is computed exactly for 1D:  
+- **Expansion scalar** (trace of the extrinsic curvature) is computed exactly for the 1D on-axis slice:  
 
-  $$\theta = -V_s \frac{\partial f}{\partial x}$$
+  $$\theta = V_s \frac{\partial f}{\partial x}$$
 
-- **Exotic energy density** (proportional to the 00 component of the stress‑energy tensor):  
+  *Note: This matches the standard Alcubierre result where contraction ( \(\theta < 0\) ) occurs in front of the bubble and expansion ( \(\theta > 0\) ) behind it.*
 
-  $$T_{00} \propto -\left(V_s \frac{\partial f}{\partial x}\right)^2$$
+- **Exotic energy density** (proportional to the 00 component of the stress‑energy tensor) is evaluated off‑axis at the torus radius \(\rho = R\):  
 
-- **Light dragging** from the shift vector $\(\beta = -V_s f\)$:  
+  $$T_{00} \propto -\frac{V_s^2 \rho^2}{4 r_s^2} \left(\frac{df}{dr_s}\right)^2, \qquad r_s = \sqrt{(x-x_s)^2 + \rho^2}$$
 
-  $$x_{\text{ray}} = x + \text{const} \cdot \beta$$
+  *This follows exactly Equation (19) of Alcubierre's paper and correctly produces a negative‑energy torus surrounding the bubble.*
+
+- **Light dragging** is implemented as a heuristic shift of null rays by the warp field:  
+
+  $$x_{\text{ray}} = x + K \, V_s f(r_s)$$
+
+  where \(K\) is a visual scaling constant (`LIGHT_DRAG` in the code). This matches the code's `x + LIGHT_DRAG * V_S * f` and captures the intuitive "dragging of light" by the moving bubble, while noting that true null geodesics would require solving the full ray‑tracing equations.
 
 - Three panels:  
   1. **Top** – shape function $\(f\)$, shift vector $\(\beta\)$, two light rays (one offset).  
