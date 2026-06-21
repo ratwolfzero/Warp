@@ -223,3 +223,4 @@ ani = FuncAnimation(fig, update, frames=NUM_FRAMES, init_func=init,
 
 print("Animation ready! Close the window to exit.")
 plt.show()
+#ani.save('warp_ng_d.gif', writer='pillow', fps=15, dpi=110)
