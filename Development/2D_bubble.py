@@ -2,15 +2,25 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-# Warp bubble parameters
-R = 2.0          # bubble radius
-sigma = 3.0      # wall sharpness
-v = 1.0          # bubble velocity
+# ============================================================
+# Alcubierre Warp Bubble Grid Distortion Visualization
+# ============================================================
 
-# Grid
-y = np.linspace(-6, 6, 120)
-z = np.linspace(-8, 8, 160)
-Y, Z = np.meshgrid(y, z)
+R = 2.0
+sigma = 3.0
+v = 1.0
+
+z_start = -4.0
+dz = 0.08
+n_frames = 120
+
+# Grid for drawing coordinate lines
+y_vals = np.linspace(-6, 6, 25)
+z_vals = np.linspace(-8, 8, 35)
+
+# ============================================================
+# Shape function
+# ============================================================
 
 def shape_function(r):
     return (
@@ -18,59 +28,160 @@ def shape_function(r):
         - np.tanh(sigma * (r - R))
     ) / (2 * np.tanh(sigma * R))
 
-def dfdR(r):
-    denom = 2 * np.tanh(sigma * R)
 
-    term1 = sigma / np.cosh(sigma * (r + R))**2
-    term2 = sigma / np.cosh(sigma * (r - R))**2
+# ============================================================
+# Simple visualization warp mapping
+#
+# This is NOT the Alcubierre metric itself.
+# It is an illustrative deformation field chosen to
+# resemble compression ahead of the bubble and expansion
+# behind it.
+# ============================================================
 
-    return (term1 - term2) / denom
-
-fig, ax = plt.subplots(figsize=(8, 6))
-
-def update(frame):
-    ax.clear()
-
-    z0 = -4 + frame * 0.1
+def warp_displacement(Y, Z, z0):
 
     r = np.sqrt(Y**2 + (Z - z0)**2)
 
-    dfdr = dfdR(r)
+    f = shape_function(r)
 
-    # Expansion scalar from paper Eq. (4)
-    theta = v * (Z - z0) / np.maximum(r, 1e-8) * dfdr
+    # Compression in front / expansion behind
+    displacement = -0.8 * (Z - z0) * f
 
-    im = ax.contourf(
-        Z, Y, theta,
-        levels=60,
-        cmap='RdBu_r'
-    )
+    return displacement
 
+
+# ============================================================
+# Figure
+# ============================================================
+
+fig, ax = plt.subplots(figsize=(10, 7))
+
+def draw_grid(z0):
+
+    ax.clear()
+
+    # --------------------------------------------------------
+    # Horizontal lines
+    # --------------------------------------------------------
+
+    z_dense = np.linspace(-8, 8, 500)
+
+    for y0 in y_vals:
+
+        Y = np.full_like(z_dense, y0)
+
+        disp = warp_displacement(Y, z_dense, z0)
+
+        z_warped = z_dense + disp
+
+        ax.plot(
+            z_warped,
+            Y,
+            lw=0.8
+        )
+
+    # --------------------------------------------------------
+    # Vertical lines
+    # --------------------------------------------------------
+
+    y_dense = np.linspace(-6, 6, 400)
+
+    for z0_line in z_vals:
+
+        Z = np.full_like(y_dense, z0_line)
+
+        disp = warp_displacement(y_dense, Z, z0)
+
+        z_warped = Z + disp
+
+        ax.plot(
+            z_warped,
+            y_dense,
+            lw=0.8
+        )
+
+    # --------------------------------------------------------
     # Bubble boundary
+    # --------------------------------------------------------
+
     circle = plt.Circle(
         (z0, 0),
         R,
         fill=False,
         color='black',
-        linewidth=2
+        linewidth=2.5
     )
+
     ax.add_patch(circle)
+
+    # Bubble center
+
+    ax.plot(
+        z0,
+        0,
+        'ko',
+        markersize=6
+    )
+
+    # Motion trail
+
+    ax.plot(
+        np.linspace(z_start, z0, 300),
+        np.zeros(300),
+        'k--',
+        alpha=0.3
+    )
+
+    # Labels
 
     ax.set_xlim(-8, 8)
     ax.set_ylim(-6, 6)
 
+    ax.set_aspect('equal')
+
     ax.set_xlabel("z")
     ax.set_ylabel("y")
-    ax.set_title("Alcubierre Warp Bubble")
 
-    return [im]
+    ax.set_title(
+        "Illustrative Warp-Bubble Grid Distortion"
+    )
+
+    ax.text(
+        0.02,
+        0.98,
+        (
+            "Compressed grid ahead\n"
+            "Expanded grid behind\n\n"
+            "Conceptual visualization"
+        ),
+        transform=ax.transAxes,
+        va='top',
+        bbox=dict(
+            boxstyle='round',
+            facecolor='white',
+            alpha=0.85
+        )
+    )
+
+    return []
+
+
+def update(frame):
+
+    z0 = z_start + frame * dz
+
+    draw_grid(z0)
+
+    return []
+
 
 ani = FuncAnimation(
     fig,
     update,
-    frames=80,
-    interval=50,
+    frames=n_frames,
+    interval=40,
     blit=False
 )
 
+plt.tight_layout()
 plt.show()
