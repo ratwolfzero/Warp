@@ -81,13 +81,13 @@ def warp_displacement(Y, Z, z0):
 def draw_2d_grid(ax, z0):
     ax.clear()
 
-    # Horizontal grid lines (constant y)
+    # Horizontal grid lines (constant y) – use default colour cycle
     z_dense = np.linspace(*Z_RANGE, 500)
     for y0 in y_vals:
         Y = np.full_like(z_dense, y0)
         disp = warp_displacement(Y, z_dense, z0)
         z_warped = z_dense + disp
-        ax.plot(z_warped, Y, 'b-', lw=0.8, alpha=0.6)
+        ax.plot(z_warped, Y, lw=0.8)          # no explicit colour → uses default cycle
 
     # Vertical grid lines (constant z)
     y_dense = np.linspace(*Y_RANGE, 400)
@@ -95,7 +95,7 @@ def draw_2d_grid(ax, z0):
         Z = np.full_like(y_dense, z0_line)
         disp = warp_displacement(y_dense, Z, z0)
         z_warped = Z + disp
-        ax.plot(z_warped, y_dense, 'b-', lw=0.8, alpha=0.6)
+        ax.plot(z_warped, y_dense, lw=0.8)    # no explicit colour
 
     # Bubble boundary (circle)
     circle = plt.Circle((z0, 0), R, fill=False, edgecolor='black', linewidth=2.5)
@@ -123,7 +123,7 @@ def draw_2d_grid(ax, z0):
 # Third row: exotic energy (spanning both columns)
 # ============================================================
 fig = plt.figure(figsize=(16, 10.5))
-gs = GridSpec(3, 2, height_ratios=[1.25, 1, 1], width_ratios=[2, 1.2])
+gs = GridSpec(3, 2, height_ratios=[1.25, 1, 1], width_ratios=[1.5, 1.2])
 
 # Top-left: 1D shape
 ax1 = fig.add_subplot(gs[0, 0])
