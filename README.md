@@ -165,7 +165,6 @@ access it via its
 or read the freely available
 [arXiv preprint](https://arxiv.org/abs/gr-qc/0009013).
 
-
 Alcubierre, M. (1994). *The Warp Drive: Hyper-Fast Travel Within General Relativity*. Classical and Quantum Gravity, 11(5), L73–L77.
 DOI: <https://doi.org/10.1088/0264-9381/11/5/001>
 arXiv: <https://arxiv.org/abs/gr-qc/0009013>
@@ -177,4 +176,3 @@ Alcubierre, M., & Lobo, F. S. N. (2017). *Warp Drive Basics*. In *Wormholes, War
 DOI: <https://doi.org/10.1007/978-3-319-55182-1_11>
 Springer: <https://link.springer.com/chapter/10.1007/978-3-319-55182-1_11>
 arXiv: <https://arxiv.org/abs/2103.05610>
-
