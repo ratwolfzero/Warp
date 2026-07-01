@@ -8,7 +8,7 @@ from matplotlib.gridspec import GridSpec
 # Shared parameters (bubble properties)
 # ============================================================
 R = 2.0
-SIGMA = 3.0
+SIGMA = 4.5
 V_S = 1.0
 
 # 1D animation parameters
@@ -17,7 +17,8 @@ X_MAX = 20.0
 N_X = 800
 NUM_FRAMES = 150
 LIGHT_DRAG = 2.0
-SHIFT_SCALE = 0.85
+SHIFT_SCALE = 1.0
+ANIMATION_INTERVAL_MS = 70
 
 x = np.linspace(X_MIN, X_MAX, N_X)
 dx = x[1] - x[0]
@@ -85,11 +86,11 @@ print("Precomputation done.")
 def shift_field(Y, Z, z0):
     r = np.sqrt(Y**2 + (Z - z0)**2)
     f = shape_function(r)
-    return V_S * f
+    return -V_S * f
 
 
 def warp_displacement(Y, Z, z0):
-    return SHIFT_SCALE * shift_field(Y, Z, z0)
+    return -SHIFT_SCALE * shift_field(Y, Z, z0)
 
 # ============================================================
 # Function to draw the 2D grid on a given axis
@@ -130,8 +131,8 @@ def draw_2d_grid(ax, z0, grid_collection, bubble_circle, bubble_center, trail_li
 # Second row: expansion scalar (spanning both columns)
 # Third row: exotic energy (spanning both columns)
 # ============================================================
-fig = plt.figure(figsize=(16, 10.5))
-gs = GridSpec(3, 2, height_ratios=[1.25, 1, 1], width_ratios=[1.5, 1.2])
+fig = plt.figure(figsize=(16, 10.5), facecolor='white')
+gs = GridSpec(3, 2, height_ratios=[1.25, 1, 1], width_ratios=[1.45, 1.15], wspace=0.22, hspace=0.30)
 
 # Top-left: 1D shape
 ax1 = fig.add_subplot(gs[0, 0])
@@ -154,7 +155,7 @@ ax4.set_ylim(*Y_RANGE)
 ax4.set_aspect('equal')
 ax4.set_xlabel('z')
 ax4.set_ylabel('y')
-ax4.set_title('Illustrative coordinate grid under an Alcubierre-style shift field', fontsize=11)
+ax4.set_title('Coordinate grid distortion', fontsize=11)
 
 # ------------------------------------------------------------
 # Set up the 1D panels (lines, images, etc.)
@@ -171,9 +172,9 @@ ship, = ax1.plot([], [], 'ko', markersize=10, label='Local ship position')
 ax1.set_xlim(X_MIN, X_MAX)
 ax1.set_ylim(-2.3, 2.3)
 ax1.set_ylabel('Warp Geometry')
-ax1.set_title('Alcubierre-style bubble profile and shift field', fontsize=12)
+ax1.set_title('Bubble profile and shift field', fontsize=12)
 ax1.grid(alpha=0.3)
-ax1.text(0.02, 0.94, 'In the simplest Alcubierre ansatz, β_x is proportional to f(r_s).',
+ax1.text(0.02, 0.94, 'In the simplest Alcubierre ansatz, β_x is proportional to -f(r_s) for a bubble moving in +x.',
          transform=ax1.transAxes, fontsize=8, va='top', color='dimgray')
 ax1.legend(loc='upper left', fontsize=9)
 
@@ -181,25 +182,27 @@ ax1.legend(loc='upper left', fontsize=9)
 theta_img = ax2.imshow(theta_history, aspect='auto', origin='lower',
                        extent=[X_MIN, X_MAX, 0, NUM_FRAMES],
                        cmap='coolwarm', vmin=-theta_lim, vmax=theta_lim)
-ax2.set_title('Effective expansion scalar θ\nBlue = expansion (behind) | Red = contraction (ahead)', fontsize=11)
+ax2.contour(x, np.arange(NUM_FRAMES), theta_history, levels=[0.0], colors='white', linewidths=0.8, alpha=0.9)
+ax2.set_title('Effective expansion scalar $\theta$', fontsize=11)
 ax2.set_ylabel('Time (frames)')
-fig.colorbar(theta_img, ax=ax2, label='θ')
+fig.colorbar(theta_img, ax=ax2, label='$\theta$')
 theta_marker = ax2.axhline(0, color='k', linestyle='--', lw=1.5)
+ax2.axvline(0, color='gray', linestyle=':', lw=1.0, alpha=0.8)
 theta_profile, = ax2.plot(x, theta_history[0, :], 'r-', lw=2.5, alpha=0.95)
 
 # Bottom: exotic energy
 energy_img = ax3.imshow(energy_history, aspect='auto', origin='lower',
                         extent=[X_MIN, X_MAX, 0, NUM_FRAMES],
                         cmap='plasma', vmin=energy_min, vmax=0)
-ax3.set_title('Effective energy proxy ~ T₀₀ (at bubble wall ρ=R)\nDark purple = strong negative energy', fontsize=11)
+ax3.set_title('Effective energy proxy $T_{00}$', fontsize=11)
 ax3.set_xlabel('Spatial Coordinate x')
 ax3.set_ylabel('Time (frames)')
-fig.colorbar(energy_img, ax=ax3, label='T₀₀ proxy')
+fig.colorbar(energy_img, ax=ax3, label='$T_{00}$ proxy')
 energy_marker = ax3.axhline(0, color='cyan', linestyle='--', lw=1.5)
 energy_profile, = ax3.plot(x, energy_history[0, :], 'y-', lw=2.5, alpha=0.95)
 
-plt.tight_layout(rect=(0, 0.03, 1, 1))
-fig.text(0.5, 0.01, 'Illustrative toy model based on the Alcubierre metric; not a feasible propulsion system.',
+fig.subplots_adjust(left=0.06, right=0.98, top=0.95, bottom=0.08, wspace=0.22, hspace=0.30)
+fig.text(0.5, 0.01, 'Illustrative toy model based on the Alcubierre metric ansatz; not a feasible propulsion system.',
          ha='center', va='bottom', fontsize=9, style='italic', color='dimgray')
 
 # ============================================================
@@ -233,7 +236,7 @@ def update(frame):
     light1 = light_ray(x, f)
     light_line1.set_data(x, light1)
     light_line2.set_data(x, light1 + 0.5)      # offset light ray
-    beta = -0.8 * V_S * f
+    beta = SHIFT_SCALE * shift_field(np.zeros_like(x), x, x0)
     shift_line.set_data(x, beta)
     coord_trail.set_data(x0_values[:frame + 1], np.full(frame + 1, 1.15))
     coord_marker.set_data([x0], [1.1])
@@ -245,7 +248,7 @@ def update(frame):
     theta_profile.set_data(x, theta_history[frame])
     energy_profile.set_data(x, energy_history[frame])
 
-    ax1.set_title(f'Alcubierre-style bubble | x₀ = {x0:.1f} | v = {V_S}c', fontsize=13)
+    ax1.set_title(f'Alcubierre-style bubble | $x_0 = {x0:.1f}$ | $v = {V_S}c$', fontsize=13)
 
     # ---- Update 2D panel ----
     draw_2d_grid(ax4, x0, grid_collection, bubble_circle, bubble_center, trail_line)
@@ -255,7 +258,7 @@ def update(frame):
             energy_marker, grid_collection, bubble_circle, bubble_center, trail_line)
 
 ani = FuncAnimation(fig, update, frames=NUM_FRAMES, init_func=init,
-                    interval=33, blit=True)
+                    interval=ANIMATION_INTERVAL_MS, blit=True)
 
 print("Animation ready! Close the window to exit.")
 plt.show()
