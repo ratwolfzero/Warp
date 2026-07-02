@@ -262,4 +262,4 @@ ani = FuncAnimation(fig, update, frames=NUM_FRAMES, init_func=init,
 
 print("Animation ready! Close the window to exit.")
 plt.show()
-ani.save('warp_ng.gif', writer='pillow', fps=15, dpi=110)
+#ani.save('warp_ng.gif', writer='pillow', fps=15, dpi=110)
