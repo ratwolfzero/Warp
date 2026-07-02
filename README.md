@@ -129,6 +129,9 @@ $$x_{\text{ray}} = x + K \, V_s f(r_s)$$
 - Light rays are **heuristic** (shifted by the shift vector), not true null geodesics.
 - Precomputed diagrams assume a rigidly moving bubble; no dynamic back-reaction.
 - Colour scaling is normalised for visibility.
+
+---
+
 **Best for:** Understanding the link between the Alcubierre shape function, shift vector, expansion/contraction, negative energy, and visual coordinate distortion.
 Further reading
 You can view the paper on the official
